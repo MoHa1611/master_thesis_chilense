@@ -1,1 +1,9 @@
+#######Climatic variable wget for loop#############
+
+##### save the downloading URLs into a text-file, e.g. envidatS3paths.txt
+
+
+for i in `cat ../../../envidatS3paths.txt`; do
+wget $i;
+done
 
