@@ -1,0 +1,6 @@
+# when download of the wget file stopped at a certain line
+# redo download but with a shorter file (minus the files that have already been downloaded)
+
+# example until line 783 was downloaded; in total 4700 files exist, thus we need the last 3917 lines of the old file and put them into a new file
+
+tail -n 3917 200timeseries_envidatS3paths.txt > 200timeseries_envidatS3paths_rest2.txt 
