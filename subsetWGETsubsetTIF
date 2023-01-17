@@ -1,0 +1,7 @@
+####while loop to subset WGET URLs to time series of 23 time points of interest
+
+while read timestep; do  grep _${timestep}_ ../../200timeseries_envidatS3paths.txt ; done < choosingTimestep.txt | grep _bio > subsetTimeSeriesWGET.txt
+
+####test command subset TIF to region of interest
+
+gdal_translate -projwin -79.4 -10 -63 -27 chelsa-trace21k_timeseries/CHELSA_TraCE21k_bio01_10_V1.0.tif  test.tif
