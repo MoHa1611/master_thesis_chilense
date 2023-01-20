@@ -1,0 +1,29 @@
+while read fileLink; do
+fileName=`basename -s https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/ $fileLink`
+fileNamePrefix=`basename $fileName .tif`
+wget $fileLink;
+gdal_translate -projwin -79.4 -10 -63 -27 $fileName subsetDownloads/${fileNamePrefix}.regionSubset.tif;
+rm -f $fileName;
+done < subsetSubsetTimeSeriesWGET.txt
+
+
+# while loop:
+# fileLink: the substSubsetTimeSerisWGET.txt file with the urls to download; the rest, what was missing
+
+# telling the fileName = just keepring the suffix, thus the filename; tell him with $fileLink, that it is found in subsetSubsetTimeSeriesWGET.txt
+
+# telling him that fileNamePrefix = the fileName (the data name) minus .tif, keeping the prefix
+
+# then downloading from the URLs in fileLink, which is subsetSubsetTimeSeriesWGET.txt
+
+# when downloaded, cut the region out with gdal_translate command; namely the f$ileName datawhich was downloaded, so each line in the fileLink txt file
+# so going down the URLs downloading it (wget $fileLink) from next to next
+
+# afterwards directly save it in the new directory subseDownloads  under each data name  fileNamePrefix which is the data name plus .regionSubset.tif
+# so subsetDownloads/${fileNamePrefix}.regionSubset.tif
+
+# with ; telling done. the next command can be done; or while loop is finished with done < fileLink txt file
+
+# when downloaded and afterwards cutted out, and the smaller tif data is saved correctly, we remove the bigger whole world tif data
+# rm -f $fileName
+# -f = foreced: so you are not being asked all the time a loop round is done
