@@ -1,3 +1,35 @@
+# logging in into the cluster:
+ssh m.hackbarth@10.152.154.1
+
+# the first bioclimatic variables have been already downloaded: need to exclude them from the wget txt.file and put the rest in a new file
+tail -n 3926 200timeseries_envidatS3paths.txt > 200timeseries_envidatS3paths_rest.txt
+
+tail -n 3918 200timeseries_envidatS3paths.txt | head
+
+
+# looking for a certain command, I already used (here logging in cluster: ssh)
+history | grep ssh
+
+
+# you wanna just keep the last part, the filename (CHELSA_TraCE21k_bio04_-30_V1.0.tif)
+basename -s https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/ https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio04_-30_V1.0.tif  
+# CHELSA_TraCE21k_bio04_-30_V1.0.tif
+
+
+# you wanna keep .tif in CHELSA_TraCE21k_bio04_-30_V1.0.tif
+basename .tif CHELSA_TraCE21k_bio04_-30_V1.0.tif
+# .tif
+
+# you wanna keep CHELSA_TraCE21k_bio04_-30_V1.0 in CHELSA_TraCE21k_bio04_-30_V1.0.tif
+# CHELSA_TraCE21k_bio04_-30_V1.0
+
+
+# just checking/showing the 23 timesteps of climatic data from the already downloaded data
+
+while read timeStep; do ls *_${timeStep}*; done < ../choosingTimestep.txt
+
+
+
 ####while loop to subset WGET URLs to time series of 23 time points of interest
 
 while read timestep; do  grep _${timestep}_ ../../200timeseries_envidatS3paths.txt ; done < choosingTimestep.txt | grep _bio > subsetTimeSeriesWGET.txt
