@@ -1,0 +1,46 @@
+while read timeStep; do 
+for i in `ls /data/proj/chilense/30_genomes_outputs/Moritz/climatic_variables/past/chelsa-trace21k_timeseries/*_${timeStep}_*`; do
+fileNamePrefix=`basename $i .tif`;
+gdal_translate -projwin -79.4 -10 -63 -27 $i subsetDownloads/${fileNamePrefix}.regionSubset.tif;
+done;
+done < choosingTimestep.txt
+
+while read timeStep; do 
+for i in `ls /data/proj/chilense/30_genomes_outputs/Moritz/climatic_variables/past/chelsa-trace21k_timeseries/*_${timeStep}_*`; do
+fileNamePrefix=`basename $i .tif`;
+echo $fileNamePrefix;
+done; 
+done < choosingTimestep.txt
+
+
+##### 
+# I have the whole big tif data bio 1-3 in the directory
+#/data/proj/chilense/30_genomes_outputs/Moritz/climatic_variables/past/chelsa-trace21k_timeseries/
+
+# I just need the 23 timesteps I have listed in the txtFile choosingTimetep.txt
+# Tell the computer: from the directory with all tif data, just pick the ones
+# that have the numbers which is listed in the choosingTimestep.txt file
+
+# for that: while loop
+
+# then the cutting of the tif data into the subset tif data: for loop
+# so a nested for loop in a while loop
+
+# first: list all the chosen tif files (the 23 with `timestep`: the i is the /*_${timeStep}_*
+# for all of this: second give them the right name: fileNamePrefix = `basename $i .tif`: this means you want to keep the whole name, but cut off the .tif and put a .tif after the chosen bio numbers
+# first loop done: ;
+
+# dann das cutting out: gdal_translate -projwin of the several $i 
+# put this into the directory /subsetDownloads
+# subsetDownloads/${fileNamePrefix}.region.tif: so give it the prefix name you wanna keep, and kept with basename (thrown away the .tif); then put after the prefix: .regionSubset.tif
+#second loop done: ;
+
+# complete loop done: done;
+
+
+# while loop done: done
+# tell it what is the timeStep file: done < choosingTimestep.txt
+
+
+# basename -s: keeps the suffix, so what your type before, and keeps the first, throws away the second
+# basename: cuts out prefix, so throws away what you type second, and keeps the first
