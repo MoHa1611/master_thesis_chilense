@@ -15,13 +15,39 @@ history | grep ssh
 basename -s https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/ https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio04_-30_V1.0.tif  
 # CHELSA_TraCE21k_bio04_-30_V1.0.tif
 
+# you wanna keep CHELSA_TraCE21k_bio04_-30_V1.0 in CHELSA_TraCE21k_bio04_-30_V1.0.tif
 
-# you wanna keep .tif in CHELSA_TraCE21k_bio04_-30_V1.0.tif
-basename .tif CHELSA_TraCE21k_bio04_-30_V1.0.tif
+basename CHELSA_TraCE21k_bio04_-30_V1.0.tif .tif
 # .tif
-
 # you wanna keep CHELSA_TraCE21k_bio04_-30_V1.0 in CHELSA_TraCE21k_bio04_-30_V1.0.tif
 # CHELSA_TraCE21k_bio04_-30_V1.0
+
+# and put to each file downloaded the datatype `.tif`
+# so, in order to have no double .tif.tif, you first tell it, to only keep everything before .tif, and then put a .tif
+
+
+while read fileLink; do
+fileName=`basename -s https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/ $fileLink`
+fileNamePrefix=`basename $fileName .tif`
+wget $fileLink;
+gdal_translate -projwin -79.4 -10 -63 -27 $fileName subsetDownloads/${fileNamePrefix}.regionSubset.tif;
+rm -f $fileName;
+done < subsetSubsetTimeSeriesWGET.txt
+
+# therefore in the while loop
+while read fileLink; do
+fileName=`basename -s https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/ $fileLink`
+fileNamePrefix=`basename $fileName .tif`
+done < subsetSubsetTimeSeriesWGET.txt
+
+# goes through the download file `subsetSubsetTimeSeriesWGET.txt` and takes every line, builts out of it the filename we tould it to do with the 
+# help of basename, namely
+
+fileName=`basename -s https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/ $fileLink`
+fileNamePrefix=`basename $fileName .tif`
+
+
+
 
 
 # just checking/showing the 23 timesteps of climatic data from the already downloaded data
