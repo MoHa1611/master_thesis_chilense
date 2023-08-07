@@ -1,0 +1,93 @@
+#!/bin/bash
+#SBATCH --job-name=refinement_download_tif
+#SBATCH --output=refinement_download_tif.log
+#SBATCH --partition=CPU
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=24
+#SBATCH --mem=12G
+#SBATCH --nodelist=node15
+
+exec &> download-rest-climvar.log   # Redirect both stdout and stderr of the entire script
+
+while read fileLink; do
+
+        fileName=`basename -s https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/ $fileLink`
+        fileNamePrefix="${fileLink#*21k_}"
+        fileNamePrefix="${fileNamePrefix%%V*}"
+        fileNamePrefix="${fileNamePrefix%_*}"
+
+        wget $fileLink;
+        gdal_translate -projwin -79.4 -10 -63 -27 $fileName ./${fileNamePrefix}.tif;
+
+        rm -f $fileName;
+
+done < download-rest-climvar.txt
+
+
+
+################################### 
+DESCRIPTION
+###################################
+
+download-rest-climvar.txt:
+
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio03_-107_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio03_-23_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio03_-44_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio03_-6_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio03_-71_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio03_4_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio04_-107_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio04_-23_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio04_-44_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio04_-6_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio04_-71_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio04_4_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio09_-107_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio09_-23_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio09_-44_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio09_-6_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio09_-71_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio09_4_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio12_-107_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio12_-23_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio12_-44_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio12_-6_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio12_-71_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio12_4_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio15_-107_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio15_-23_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio15_-44_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio15_-6_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio15_-71_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio15_4_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/tasmax/CHELSA_TraCE21k_tasmax_12_6_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/tasmax/CHELSA_TraCE21k_tasmax_12_-6_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/tasmax/CHELSA_TraCE21k_tasmax_12_-23_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/tasmax/CHELSA_TraCE21k_tasmax_12_-44_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/tasmax/CHELSA_TraCE21k_tasmax_12_-71_V1.0.tif 
+https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/tasmax/CHELSA_TraCE21k_tasmax_12_-107_V1.0.tif 
+
+######################
+Explanation of the renaming
+####################
+
+The given set of commands extracts a specific portion of the variable's URL and uses that as the basis for the filename. Let's break down what each of these commands does:
+
+    fileName=\basename -s https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/ $fileLink``:
+        This extracts the base name of the file link (i.e., everything after the last / in the URL).
+        For the example URL https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio/CHELSA_TraCE21k_bio12_-107_V1.0.tif, the output will be CHELSA_TraCE21k_bio12_-107_V1.0.tif.
+
+    fileNamePrefix="${fileLink#*21k_}":
+        This command removes everything before (and including) "21k_" in the URL.
+        For the same example URL, the output will be bio12_-107_V1.0.tif.
+
+    fileNamePrefix="${fileNamePrefix%%V*}":
+        This command removes everything after (and including) the first "V" in the modified URL.
+        For the same example URL, the output will be bio12_-107_.
+
+    fileNamePrefix="${fileNamePrefix%_*}":
+        This command removes everything after (and including) the last underscore in the modified URL.
+        For the same example URL, the output will be bio12_-107.
+
+Lastly, the gdal_translate command will create a file with the .tif extension based on the fileNamePrefix, so the final filename will be bio12_-107.tif for the example URL.
