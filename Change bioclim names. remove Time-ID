@@ -1,0 +1,45 @@
+#!/bin/bash
+
+for file in *_*.tif; do
+  # Extract the part before the underscore
+  prefix="${file%%_*}"
+  
+  # Rename the file, preserving the extension
+  new_file="${prefix}.tif"
+  
+  # Rename the file
+  mv "$file" "$new_file"
+done
+
+
+
+---------------------------------------
+I have these files:
+
+bio03_13.tif  bio04_13.tif  bio09_13.tif  bio12_13.tif  bio15_13.tif  tasmax_12_13.tif
+
+I want that everything gets removed between underscore _ (underscore as well) and .tif (.tif shall stay)
+
+Loop (for file in *_*.tif; do ... done):
+
+    This loop goes through all files in the current directory that match the pattern *_*.tif`.
+    The pattern *_*.tif matches filenames that have at least one underscore and end in .tif.
+
+Extract the part before the underscore (prefix="${file%%_*}"):
+
+    This line uses parameter expansion to extract the part of the filename before the first underscore.
+    ${file%%_*} means: from the variable $file, remove the longest match of _* from the end. So it effectively keeps everything before the first underscore.
+    The result is stored in the prefix variable.
+
+Construct the new filename (new_file="${prefix}.tif"):
+
+    This line creates a new filename using the previously extracted prefix and appends .tif to it.
+    The result is stored in the new_file variable.
+
+Rename the file (mv "$file" "$new_file"):
+
+    This line uses the mv (move) command to rename the original file ($file) to the new filename ($new_file).
+
+End of Loop (done):
+
+    This marks the end of the loop. The script will go back to the for command and process the next file (if there is one).
