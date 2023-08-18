@@ -1,0 +1,6 @@
+# To get a simple list of all installed package names, you can do:
+installed.packages()[,"Package"]
+# will return a character vector of all installed package names.
+
+# If you want to view more details about the installed packages, you can just run:
+installed.packages()
