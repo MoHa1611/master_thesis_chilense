@@ -61,7 +61,13 @@ ls -la | grep -v '^d'
 
 # Note: The -a flag tells ls to list all entries, including hidden ones.
 
+######################################################################################################################################################################
 
+grep -c "> Projecting" example.file
+# directly give you the count of lines containing "> Projecting". 
+
+grep "> Projecting" example.file | wc -l
+# would pipe (|) the output of grep to wc, which would then count the number of lines (-l). But again, the first method with grep -c is more straightforward for this task.
 
 # To list only the files (excluding directories) in the current directory, you can use:
 ls -p | grep -v /
