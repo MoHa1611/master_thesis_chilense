@@ -4,3 +4,10 @@ installed.packages()[,"Package"]
 
 # If you want to view more details about the installed packages, you can just run:
 installed.packages()
+
+
+
+# install packages in R in 2 rows
+
+ packages <- c("raster", "rgdal", "dismo", "terra", "biomod2", "ecospat", "fuzzySim", "plyr", "dplyr", "reshape2", "ggplot2", "utils", "graphics", "stats", "spatial", "sp", "abc")
+install.packages(setdiff(packages, rownames(installed.packages()))) 
