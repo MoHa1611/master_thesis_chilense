@@ -1,0 +1,77 @@
+#!/usr/bin/Rscript
+
+
+library(devtools)
+# To install package normally
+devtools::install_local(path)
+library(eSMC2)#,lib.loc = "/data/home/students/l.metzger/R/x86_64-redhat-linux-gnu-library/4.0/"
+library(parallel)
+
+
+auf frontend: conda create -n myR; conda activate myR; conda install -c "r/label/archive" r ; install esmc...; und dann in dein script conda activate myR schreiben, wenn du es submittest
+
+
+# End...
+
+echo "Start conda"
+
+#conda activate myR
+
+echo "Start Rscript"
+
+sleep 100
+
+/usr/bin/Rscript /data/home/students/l.metzger/Documents/Arabis/MSMC/Snp_called_files_MSMC/MSMC_with_phased_shapeit_data/MSMC_files_nemo_allo/eSMC_results/run_esmc_self_rate_nemo_allo_Rho_F_SF_T_rho_5_LH_F_cluster.R
+
+echo "Stop Rscript"
+
+echo "Stop conda"
+
+
+#!/usr/bin/Rscript
+
+    This is a shebang line that indicates the interpreter for executing the script. In this case, it specifies that the script should be run using Rscript, which is a way to run R scripts from the command line.
+
+R Code:
+
+R
+
+library(devtools)
+# To install package normally
+devtools::install_local(path)
+library(eSMC2)
+library(parallel)
+
+    The script loads the devtools library, which provides functions to make package development easier in R.
+    It then calls the install_local function from the devtools package to install a local R package. However, the variable path is not defined in the provided code, so this would likely result in an error.
+    The script then loads the eSMC2 and parallel libraries.
+
+Comment:
+
+R
+
+auf frontend: conda create -n myR; conda activate myR; conda install -c "r/label/archive" r ; install esmc...; und dann in dein script conda activate myR schreiben, wenn du es submittest
+
+    This seems to be a comment written in German. It provides instructions on how to set up a Conda environment named myR, activate it, install the R language from a specific channel, and then install some package (possibly esmc). It also suggests adding conda activate myR to the script when submitting it.
+
+Shell Commands:
+
+bash
+
+    # End...
+    echo "Start conda"
+    #conda activate myR
+    echo "Start Rscript"
+    sleep 100
+    /usr/bin/Rscript /data/home/students/l.metzger/Documents/Arabis/MSMC/Snp_called_files_MSMC/MSMC_with_phased_shapeit_data/MSMC_files_nemo_allo/eSMC_results/run_esmc_self_rate_nemo_allo_Rho_F_SF_T_rho_5_LH_F_cluster.R
+    echo "Stop Rscript"
+    echo "Stop conda"
+
+        The script prints "Start conda" to the console.
+        The line #conda activate myR is commented out, so it won't be executed. If it were uncommented, it would activate the myR Conda environment.
+        The script then prints "Start Rscript" to the console.
+        The sleep 100 command pauses the script for 100 seconds.
+        The script then runs another R script located at the specified path using Rscript.
+        After the R script finishes executing, the script prints "Stop Rscript" and "Stop conda" to the console.
+
+In summary, this script seems to be a mix of R and shell commands. It loads some R libraries, provides instructions for setting up a Conda environment, and then runs another R script after a delay. Some parts of the script, like the path variable and the commented-out conda activate command, suggest that this script might be a work in progress or a template.
